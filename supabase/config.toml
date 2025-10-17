@@ -1,1 +1,4 @@
 project_id = "lgsxikqwjewvxdrpduri"
+
+[functions.generate-zip]
+verify_jwt = true
