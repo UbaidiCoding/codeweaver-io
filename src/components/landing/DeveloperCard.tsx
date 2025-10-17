@@ -50,17 +50,17 @@ export const DeveloperCard = () => {
               {/* Social Links */}
               <div className="flex gap-3 justify-center md:justify-start">
                 <Button variant="outline" size="icon" asChild>
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://github.com/UbaidiCoding" target="_blank" rel="noopener noreferrer">
                     <Github className="w-5 h-5" />
                   </a>
                 </Button>
                 <Button variant="outline" size="icon" asChild>
-                  <a href="mailto:admin@ubaidi.com">
+                  <a href="mailto:devsamiubaidi@gmail.com">
                     <Mail className="w-5 h-5" />
                   </a>
                 </Button>
                 <Button variant="outline" size="icon" asChild>
-                  <a href="https://ubaidi.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://writersamiubaidi.blogspot.com/" target="_blank" rel="noopener noreferrer">
                     <Globe className="w-5 h-5" />
                   </a>
                 </Button>
