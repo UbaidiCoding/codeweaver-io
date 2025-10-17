@@ -10,31 +10,48 @@ const plans = [
     period: "forever",
     description: "Perfect for trying out our platform",
     features: [
-      "10 free credits",
+      "10 free credits on signup",
       "Basic code generation",
       "ZIP downloads",
       "PDF receipts",
       "Community support",
     ],
-    cta: "Get Started",
+    cta: "Get Started Free",
     popular: false,
   },
   {
     name: "Pro",
     price: "$29",
     period: "per month",
-    description: "For professional developers",
+    description: "For professional developers & teams",
     features: [
-      "Unlimited credits",
-      "Advanced AI models",
-      "Priority generation",
-      "Custom prompts",
+      "Unlimited monthly credits",
+      "Advanced AI models (GPT-4, Claude)",
+      "Priority generation queue",
+      "Custom prompt templates",
       "Affiliate program access",
-      "Priority support",
+      "Priority email support",
       "API access",
+      "Early access to new features",
     ],
     cta: "Upgrade to Pro",
     popular: true,
+  },
+  {
+    name: "Custom Credits",
+    price: "$1",
+    period: "= 10 credits",
+    description: "Pay as you go, lifetime validity",
+    features: [
+      "No expiration date",
+      "Lifetime access to credits",
+      "Same features as Free plan",
+      "Buy any amount you need",
+      "No monthly commitment",
+      "Perfect for occasional use",
+    ],
+    cta: "Buy Credits",
+    popular: false,
   },
 ];
 
@@ -52,7 +69,7 @@ export const Pricing = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {plans.map((plan, index) => (
             <Card
               key={index}
