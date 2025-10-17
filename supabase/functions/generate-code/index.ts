@@ -14,11 +14,44 @@ serve(async (req) => {
   try {
     const { prompt } = await req.json();
     
-    if (!prompt) {
+    // Validate prompt type and presence
+    if (!prompt || typeof prompt !== 'string') {
       return new Response(
-        JSON.stringify({ error: 'Prompt is required' }),
+        JSON.stringify({ error: 'Prompt must be a valid string' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
+    }
+
+    // Validate prompt length
+    const trimmedPrompt = prompt.trim();
+    if (trimmedPrompt.length < 10) {
+      return new Response(
+        JSON.stringify({ error: 'Prompt must be at least 10 characters' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (trimmedPrompt.length > 5000) {
+      return new Response(
+        JSON.stringify({ error: 'Prompt exceeds maximum length of 5000 characters' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // Basic content filtering for prompt injection
+    const dangerousPatterns = [
+      /ignore\s+previous\s+instructions/i,
+      /system\s+prompt/i,
+      /<script[^>]*>/i
+    ];
+
+    for (const pattern of dangerousPatterns) {
+      if (pattern.test(trimmedPrompt)) {
+        return new Response(
+          JSON.stringify({ error: 'Invalid prompt content detected' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        );
+      }
     }
 
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
@@ -67,6 +100,23 @@ serve(async (req) => {
       );
     }
 
+    // Rate limiting: Check recent generation count (10 per 5 minutes)
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+    const { count, error: countError } = await supabase
+      .from('receipts')
+      .select('*', { count: 'exact', head: true })
+      .eq('user_id', user.id)
+      .gte('created_at', fiveMinutesAgo.toISOString());
+
+    if (countError) {
+      console.error('Rate limit check error:', countError);
+    } else if (count && count >= 10) {
+      return new Response(
+        JSON.stringify({ error: 'Rate limit exceeded. Maximum 10 generations per 5 minutes.' }),
+        { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     // Call Lovable AI
     console.log('Calling Lovable AI with prompt:', prompt);
     const aiResponse = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
@@ -84,7 +134,7 @@ serve(async (req) => {
           },
           {
             role: 'user',
-            content: prompt
+            content: trimmedPrompt
           }
         ],
       }),
