@@ -16,11 +16,12 @@ export const DeveloperCard = () => {
           </p>
         </div>
 
-        <Card className="p-8 md:p-12 bg-card border-border hover:border-primary/50 transition-all">
+        <Card className="gradient-border hover-lift p-8 md:p-12">
           <div className="flex flex-col md:flex-row gap-8 items-center">
             {/* Developer Image */}
-            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-primary to-accent flex-shrink-0 flex items-center justify-center text-4xl font-bold">
+            <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-primary to-accent flex-shrink-0 flex items-center justify-center text-4xl font-bold glow-effect animate-pulse">
               AU
+              <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/50 to-accent/50 blur-xl"></div>
             </div>
 
             {/* Developer Info */}

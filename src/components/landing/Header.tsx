@@ -12,7 +12,7 @@ export const Header = () => {
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center group-hover:scale-110 transition-transform">
               <Code className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold">CodeGen AI</span>
+            <span className="text-xl font-bold">CodeWeaver</span>
           </Link>
 
           {/* Navigation */}

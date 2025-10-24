@@ -21,14 +21,14 @@ export const Hero = () => {
 
         {/* Main heading */}
         <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-          Transform Ideas into
-          <span className="gradient-text block mt-2">Production Code</span>
+          Welcome to
+          <span className="gradient-text block mt-2">CodeWeaver</span>
         </h1>
 
         {/* Subheading */}
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-10 animate-fade-in">
-          Generate production-ready code from simple prompts. Download as ZIP, get PDF receipts, 
-          and join our affiliate program to earn rewards.
+          AI-powered coding assistant for developers. Generate, edit, and execute code in real-time 
+          with our intelligent workspace powered by advanced AI models.
         </p>
 
         {/* CTA Buttons */}
