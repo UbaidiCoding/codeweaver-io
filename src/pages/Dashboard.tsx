@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { 
   Code, Download, LogOut, Copy, Check, Crown, Plus, 
   Play, Maximize2, Minimize2, FileCode, Terminal, Eye,
-  ChevronLeft, ChevronRight
+  ChevronLeft, ChevronRight, User as UserIcon
 } from "lucide-react";
 import type { User } from "@supabase/supabase-js";
 import { UpgradeDialog } from "@/components/dashboard/UpgradeDialog";
@@ -326,6 +326,10 @@ const Dashboard = () => {
 
               <div className="space-y-2">
                 <p className="text-xs text-muted-foreground px-2">Quick Actions</p>
+                <Button variant="ghost" className="w-full justify-start" onClick={() => navigate("/profile")}>
+                  <UserIcon className="w-4 h-4 mr-2" />
+                  Profile
+                </Button>
                 <Button variant="ghost" className="w-full justify-start" onClick={() => setPrompt("")}>
                   <FileCode className="w-4 h-4 mr-2" />
                   New File
