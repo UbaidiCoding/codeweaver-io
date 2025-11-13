@@ -45,7 +45,7 @@ const Profile = () => {
 
       setFullName(profile.full_name || "");
       setEmail(profile.email || "");
-      setAvatarUrl(profile.avatar_url || "");
+      setAvatarUrl((profile as any).avatar_url || "");
     } catch (error: any) {
       toast({
         title: "Error",
@@ -81,12 +81,14 @@ const Profile = () => {
 
       setAvatarUrl(publicUrl);
 
-      const { error: updateError } = await supabase
+      const { error } = await supabase
         .from("profiles")
-        .update({ avatar_url: publicUrl })
+        .update({
+          avatar_url: publicUrl,
+        } as any)
         .eq("id", user.id);
 
-      if (updateError) throw updateError;
+      if (error) throw error;
 
       toast({
         title: "Success",
